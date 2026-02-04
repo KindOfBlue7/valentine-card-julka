@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bd moją walentynką????</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --pink-bg: #ffe3f4;
+      --pink-main: #ff4f9a;
+      --pink-dark: #c81e76;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --text: #5b1942;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #ffeaf8, var(--pink-bg));
+      color: var(--text);
+    }
+
+    .card {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-radius: 24px;
+      background: var(--card-bg);
+      box-shadow: 0 12px 30px rgba(200, 30, 118, 0.25);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+      margin-bottom: 1.8rem;
+      color: var(--pink-dark);
+    }
+
+    .buttons {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      min-height: 60px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(200, 30, 118, 0.4);
+    }
+
+    .btn-yes:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(200, 30, 118, 0.45);
+    }
+
+    .btn-no {
+      background: #fff1fb;
+      color: var(--pink-dark);
+      box-shadow: 0 6px 14px rgba(200, 30, 118, 0.25);
+      touch-action: manipulation;
+    }
+
+    .btn-no.running {
+      transition: transform 0.08s ease;
+    }
+
+    .gif-container {
+      margin-top: 2rem;
+      display: none; /* shown after Tak is clicked */
+    }
+
+    .gif-hearts {
+      font-size: 1.5rem;
+      color: var(--pink-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .gif-wrapper {
+      display: inline-block;
+      padding: 1rem;
+      border-radius: 18px;
+      background: #ffe5f7;
+      box-shadow: 0 10px 22px rgba(200, 30, 118, 0.25);
+      position: relative;
+    }
+
+    .gif-wrapper::before,
+    .gif-wrapper::after {
+      content: "❤";
+      position: absolute;
+      color: var(--pink-main);
+      opacity: 0.7;
+      font-size: 1.8rem;
+    }
+
+    .gif-wrapper::before {
+      top: -10px;
+      left: -10px;
+    }
+
+    .gif-wrapper::after {
+      bottom: -10px;
+      right: -10px;
+    }
+
+    .gif-wrapper img {
+      max-width: 260px;
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .gif-caption {
+      margin-top: 0.6rem;
+      font-weight: 600;
+      color: var(--pink-dark);
+    }
+
+    /* extra scattered gifs */
+    .extra-gifs {
+      position: relative;
+      margin-top: 1.8rem;
+      width: 100%;
+      height: 220px;
+    }
+
+    .extra-gif {
+      position: absolute;
+      max-width: 140px;
+      width: 35%;
+      border-radius: 14px;
+      box-shadow: 0 8px 18px rgba(200, 30, 118, 0.35);
+    }
+
+    .extra-gif.g2 { top: -10px; left: -40px; transform: rotate(-8deg); }
+    .extra-gif.g3 { top: -30px; right: -30px; transform: rotate(7deg); }
+    .extra-gif.g4 { bottom: -15px; left: 10%; transform: rotate(5deg); }
+    .extra-gif.g5 { bottom: -35px; right: 5%; transform: rotate(-6deg); }
+
+    @media (max-width: 480px) {
+      .extra-gifs {
+        height: 180px;
+      }
+      .extra-gif {
+        max-width: 110px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Bd moją walentynką????</h1>
+
+    <div id="catWrapper" style="margin: 1rem 0 1.2rem;">
+      <img
+        src="static/cat.jpg"
+        alt="Słodki kotek walentynkowy"
+        style="max-width: 160px; width: 60%; border-radius: 18px; box-shadow: 0 8px 18px rgba(200, 30, 118, 0.35);"
+      />
+    </div>
+
+    <div class="buttons" id="buttons">
+      <button class="btn-yes" id="yesBtn">Tak</button>
+      <button class="btn-no" id="noBtn">Nie</button>
+    </div>
+
+    <div class="gif-container" id="gifContainer">
+      <div class="gif-hearts">💖 💕 💖 💕 💖</div>
+      <div class="gif-wrapper">
+        <!-- Główne GIF w środku -->
+        <img src="static/valentine1.gif" alt="Moja Walentynka" />
+      </div>
+      <div class="gif-hearts">💕 💖 💕 💖 💕</div>
+
+      <!-- Dodatkowe GIFy rozsypane wokół karty -->
+      <div class="extra-gifs">
+        <img class="extra-gif g2" src="static/valentine2.gif" alt="Walentynka 2" />
+        <img class="extra-gif g3" src="static/valentine3.gif" alt="Walentynka 3" />
+        <img class="extra-gif g4" src="static/valentine4.gif" alt="Walentynka 4" />
+        <img class="extra-gif g5" src="static/valentine5.gif" alt="Walentynka 5" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const buttonsDiv = document.getElementById('buttons');
+    const gifContainer = document.getElementById('gifContainer');
+    const noBtn = document.getElementById('noBtn');
+    const titleEl = document.querySelector('.card h1');
+    const catWrapper = document.getElementById('catWrapper');
+
+    // pokazanie GIFów po kliknięciu "Tak"
+
+    yesBtn.addEventListener('click', () => {
+      buttonsDiv.style.display = 'none';
+      gifContainer.style.display = 'block';
+      if (titleEl) {
+        titleEl.textContent = 'Yippiee!!!!!!!';
+      }
+      if (catWrapper) {
+        catWrapper.style.display = 'none';
+      }
+
+      // dźwięk "yippie" kilka razy z lekkim przesunięciem
+      const repeats = 4;
+      const offsetMs = 500;
+      for (let i = 0; i < repeats; i++) {
+        setTimeout(() => {
+          const audio = new Audio('sounds/yippee.mp3');
+          audio.play().catch(() => {});
+        }, i * offsetMs);
+      }
+    });
+
+    // "Uciekający" przycisk Nie
+    let noSize = 1;
+
+    function moveNoButton() {
+      // po pierwszym ruchu ustawiamy absolutne pozycjonowanie
+      if (noBtn.style.position !== 'absolute') {
+        noBtn.style.position = 'absolute';
+        noBtn.style.transform = 'translate(0, 0)';
+      }
+
+      const bounds = buttonsDiv.getBoundingClientRect();
+      const btnBounds = noBtn.getBoundingClientRect();
+      const yesBounds = yesBtn.getBoundingClientRect();
+
+      // wymiary w układzie odniesienia kontenera
+      const yesX = yesBounds.left - bounds.left;
+      const yesY = yesBounds.top - bounds.top;
+      const yesW = yesBounds.width;
+      const yesH = yesBounds.height;
+
+      const maxX = bounds.width - btnBounds.width;
+      const maxY = bounds.height - btnBounds.height;
+
+      let x, y;
+      const margin = 16; // margines bezpieczeństwa od przycisku "Tak"
+      let tries = 0;
+
+      do {
+        x = Math.random() * maxX;
+        y = Math.random() * maxY;
+        const overlapsHorizontally =
+          x + btnBounds.width > yesX - margin &&
+          x < yesX + yesW + margin;
+        const overlapsVertically =
+          y + btnBounds.height > yesY - margin &&
+          y < yesY + yesH + margin;
+        const overlaps = overlapsHorizontally && overlapsVertically;
+        if (!overlaps || tries > 20) break;
+        tries++;
+      } while (true);
+
+      noSize = Math.max(0.6, noSize - 0.05);
+
+      noBtn.classList.add('running');
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.transform = `scale(${noSize})`;
+    }
+
+    // Reakcja na najechanie myszką
+    noBtn.addEventListener('mouseenter', moveNoButton);
+    noBtn.addEventListener('mousemove', moveNoButton);
+
+    // Reakcja na dotyk / kliknięcie – też ucieka
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveNoButton();
+    }, { passive: false });
+  </script>
+</body>
+</html>
+
